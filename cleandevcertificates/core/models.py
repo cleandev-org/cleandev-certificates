@@ -9,19 +9,20 @@ class Person(models.Model):
     KIND_CHOICES = (
         ('S', _(u'Aluno')),
         ('U', _(u'Universidade')),
-        ('P', _(u'Local')),
+        ('P', _(u'Patrocinador')),
     )
 
     kind = models.CharField(_(u'tipo'), max_length=1,
                             choices=KIND_CHOICES, default="S")
     university = models.ForeignKey('self', verbose_name=_(
         u'faculdade'), blank=True, null=True,
-        limit_choices_to={'kind__in': ['U', 'P']})
+        limit_choices_to={'kind__in': ['U']})
     course = models.CharField(_(u'curso'), max_length=100, blank=True)
     semester = models.IntegerField(_(u'semestre'), blank=True, null=True)
     name = models.CharField(_(u'nome'), max_length=100)
+    display_name = models.CharField(_(u'apelido'), max_length=100, blank=True)
     cpf = models.CharField(_(u'CPF'), max_length=20, blank=True, null=True)
-    email = models.EmailField(_(u'e-mail'), max_length=100, unique=True)
+    email = models.EmailField(_(u'e-mail'), max_length=100, blank=True)
     city = models.CharField(_(u'cidade'), max_length=50, blank=True)
     facebook = models.URLField(_(u'facebook'), blank=True)
     twitter = models.CharField(_(u'twitter'), max_length=50, blank=True)
@@ -40,23 +41,12 @@ class Person(models.Model):
         verbose_name_plural = _(u'Pessoas')
         ordering = ['name']
 
-    """
-    def save(self, *args, **kwargs):
-        if Person.objects\
-                .filter(cpf=self.cpf)\
-                .count():
-            raise ValidationError(_(u'Pessoa com este CPF já existe.'))
-
-        if Person.objects\
-                .filter(email=self.email)\
-                .count():
-            raise ValidationError(_(u'Pessoa com este E-mail já existe.'))
-
-        return super(Person, self).save(*args, **kwargs)
-    """
-
     def __unicode__(self):
         return self.name
+
+    @models.permalink
+    def get_absolute_url(self):
+        return ('core:person_edit', (), {})
 
     def verify(self):
         try:

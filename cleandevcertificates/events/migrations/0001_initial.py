@@ -1,99 +1,68 @@
 # -*- coding: utf-8 -*-
-from south.utils import datetime_utils as datetime
-from south.db import db
-from south.v2 import SchemaMigration
-from django.db import models
+from __future__ import unicode_literals
+
+from django.db import models, migrations
 
 
-class Migration(SchemaMigration):
+class Migration(migrations.Migration):
 
-    def forwards(self, orm):
-        # Adding model 'Event'
-        db.create_table(u'events_event', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=250)),
-            ('workload', self.gf('django.db.models.fields.IntegerField')()),
-            ('date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('place', self.gf('django.db.models.fields.related.ForeignKey')(related_name='place', to=orm['core.Person'])),
-            ('complement', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-            ('speaker', self.gf('django.db.models.fields.related.ForeignKey')(related_name='speaker', to=orm['core.Person'])),
-            ('post', self.gf('django.db.models.fields.URLField')(max_length=200, blank=True)),
-            ('token', self.gf('django.db.models.fields.CharField')(max_length=50, blank=True)),
-            ('token_expirate', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
-            ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('updated_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-        ))
-        db.send_create_signal(u'events', ['Event'])
+    dependencies = [
+        ('core', '0003_auto_20150211_1257'),
+    ]
 
-        # Adding model 'Certified'
-        db.create_table(u'events_certified', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('person', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['core.Person'])),
-            ('event', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['events.Event'])),
-            ('rating', self.gf('django.db.models.fields.IntegerField')(null=True, blank=True)),
-            ('observation', self.gf('django.db.models.fields.TextField')(blank=True)),
-            ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('created_at', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('updated_at', self.gf('django.db.models.fields.DateTimeField')(auto_now=True, blank=True)),
-        ))
-        db.send_create_signal(u'events', ['Certified'])
-
-
-    def backwards(self, orm):
-        # Deleting model 'Event'
-        db.delete_table(u'events_event')
-
-        # Deleting model 'Certified'
-        db.delete_table(u'events_certified')
-
-
-    models = {
-        u'core.person': {
-            'Meta': {'ordering': "['name']", 'object_name': 'Person'},
-            'city': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
-            'course': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'cpf': ('django.db.models.fields.CharField', [], {'max_length': '20', 'unique': 'True', 'null': 'True', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '100'}),
-            'facebook': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'kind': ('django.db.models.fields.CharField', [], {'max_length': '1'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'semester': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'twitter': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
-            'university': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['core.Person']", 'null': 'True', 'blank': 'True'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
-        },
-        u'events.certified': {
-            'Meta': {'ordering': "['-event__date']", 'object_name': 'Certified'},
-            'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'event': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['events.Event']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'observation': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'person': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['core.Person']"}),
-            'rating': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'})
-        },
-        u'events.event': {
-            'Meta': {'ordering': "['-date']", 'object_name': 'Event'},
-            'complement': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
-            'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
-            'date': ('django.db.models.fields.DateTimeField', [], {}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'is_active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '250'}),
-            'place': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'place'", 'to': u"orm['core.Person']"}),
-            'post': ('django.db.models.fields.URLField', [], {'max_length': '200', 'blank': 'True'}),
-            'speaker': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'speaker'", 'to': u"orm['core.Person']"}),
-            'token': ('django.db.models.fields.CharField', [], {'max_length': '50', 'blank': 'True'}),
-            'token_expirate': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'updated_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'workload': ('django.db.models.fields.IntegerField', [], {})
-        }
-    }
-
-    complete_apps = ['events']
+    operations = [
+        migrations.CreateModel(
+            name='Certified',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('rating', models.IntegerField(null=True, verbose_name='classifica\xe7\xe3o', blank=True)),
+                ('observation', models.TextField(verbose_name='observa\xe7\xe3o', blank=True)),
+                ('is_active', models.BooleanField(default=True, verbose_name='ativo?')),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='criado em')),
+                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='alterado em')),
+            ],
+            options={
+                'ordering': ['-event__date'],
+                'verbose_name': 'Certificado',
+                'verbose_name_plural': 'Certificados',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Event',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=250, verbose_name='nome')),
+                ('workload', models.IntegerField(verbose_name='carga hor\xe1ria')),
+                ('date', models.DateTimeField(verbose_name='data e hora')),
+                ('complement', models.CharField(max_length=50, verbose_name='Complemento', blank=True)),
+                ('post', models.URLField(verbose_name='Post', blank=True)),
+                ('token', models.CharField(max_length=50, verbose_name='token', blank=True)),
+                ('token_expirate', models.DateTimeField(null=True, verbose_name='data de expira\xe7\xe3o', blank=True)),
+                ('is_active', models.BooleanField(default=True, verbose_name='ativo?')),
+                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='criado em')),
+                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='alterado em')),
+                ('place', models.ForeignKey(related_name=b'place', verbose_name='Local', to='core.Person')),
+                ('speaker', models.ForeignKey(related_name=b'speaker', verbose_name='Palestrante', to='core.Person')),
+                ('support', models.ManyToManyField(to='core.Person', verbose_name='apoio')),
+            ],
+            options={
+                'ordering': ['-date'],
+                'verbose_name': 'Evento',
+                'verbose_name_plural': 'Eventos',
+            },
+            bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='certified',
+            name='event',
+            field=models.ForeignKey(verbose_name='evento', to='events.Event'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='certified',
+            name='person',
+            field=models.ForeignKey(verbose_name='pessoa', to='core.Person'),
+            preserve_default=True,
+        ),
+    ]

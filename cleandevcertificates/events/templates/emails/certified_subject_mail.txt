@@ -1,1 +1,3 @@
-Certificado CleaDev.org
+{% load i18n %}
+
+{% trans "Certificado CleaDev.org" %}

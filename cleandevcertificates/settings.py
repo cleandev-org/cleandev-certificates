@@ -76,7 +76,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'pt-br'
+LANGUAGE_CODE = 'pt-Br'
 
 TIME_ZONE = 'UTC'
 
@@ -101,8 +101,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
 )
 
-EMAIL_HOST = config('EMAIL_HOST', cast=str)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST = 'mail.coder42.com' #config('EMAIL_HOST', cast=str)
+EMAIL_HOST_USER = 'matheus@coder42.com' #config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = 'coder123' #config('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

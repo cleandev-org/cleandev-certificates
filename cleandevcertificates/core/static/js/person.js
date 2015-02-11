@@ -1,5 +1,4 @@
 (function($) {
-
     $(document).ready(function() {
         // Mask
         $("input#id_cpf").mask("999.999.999-99");
@@ -8,16 +7,16 @@
         $("select#id_kind").bind("change", function(e) {
             e.preventDefault();
 
-            var $this = $(this);
-            var kind = $this.val();
-            var cpfFieldRow = $(".field-cpf");
-            var universityFieldRow = $(".field-university");
-            var courseFieldRow = $(".field-course");
-            var semesterFieldRow = $(".field-semester");
-            var cityFieldRow = $(".field-city");
-            var facebookFieldRow = $(".field-facebook");
-            var twitterFieldRow = $(".field-twitter");
-            var imageFieldRow = $(".field-image");
+            var $this = $(this),
+                kind = $this.val(),
+                cpfFieldRow = $(".field-cpf"),
+                universityFieldRow = $(".field-university"),
+                courseFieldRow = $(".field-course"),
+                semesterFieldRow = $(".field-semester"),
+                cityFieldRow = $(".field-city"),
+                facebookFieldRow = $(".field-facebook"),
+                twitterFieldRow = $(".field-twitter"),
+                imageFieldRow = $(".field-image");
 
             // Hide fields row
             cpfFieldRow.hide(0);
@@ -51,37 +50,38 @@
                 cityFieldRow.show(0);
             }
         });
+
         $("select#id_kind").trigger("change");
 
-        // Search Courses by University
-        $("select#id_university").change(function() {
-            var $this = $(this);
-            var course = $("select#id_course");
-            var valueCourse = course.val();
-            var option = $("<option />");
-            var options = [];
-            options.push(option.val("").html("---------"));
+            // Search Courses by University
+            $("select#id_university").change(function() {
+                var $this = $(this);
+                var course = $("select#id_course");
+                var valueCourse = course.val();
+                var option = $("<option />");
+                var options = [];
+                options.push(option.val("").html("---------"));
 
-            if($this.val() != "") {
-                $.ajax({
-                    url: '/core/courses/courses_by_uniservity/' + $this.val() + '/',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        $.each(data, function(i, key) {
-                            options.push(
-                                option.val(key.pk).html(key.fields.name)
-                            );
-                        });
+                if($this.val() != "") {
+                    $.ajax({
+                        url: '/core/courses/courses_by_uniservity/' + $this.val() + '/',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            $.each(data, function(i, key) {
+                                options.push(
+                                    option.val(key.pk).html(key.fields.name)
+                                    );
+                            });
 
-                        course.html(options);
-                    }
-                });
-            }
+                            course.html(options);
+                        }
+                    });
+                }
 
-            course.html(options);
-            course.val(valueCourse);
-        });
+                course.html(options);
+                course.val(valueCourse);
+            });
         $("select#id_university").trigger("change");
     });
 

@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 
+
 {% load staticfiles %}
 
 
-{% block content %}
+{% block title %}{{ object.event.name }}{% endblock title %}
 
+
+{% block content %}
 <div id="printable" class="clearfix text-center">
     <table class="table">
         <tbody>
@@ -12,37 +15,57 @@
                 <td>
                     <img src="{% static 'images/certified_decorator.png' %}">
                 </td>
-                <td>
+                <td style="padding-right: 80px;">
                     <img src="{% static 'images/cleandev.png' %}">
-
-                    <br><br>
-
+                    <br>
                     <h1>Certificado</h1>
-
-                    <br><br><br>
-
-                    <p class="col-md-12">Concedido a {{ object.person.name }} (CPF:{{ object.person.cpf_cnpj }}) como participante do(a) {{ object.event.title }} realizado em {{ object.event.date|date:"d/m/Y" }} com carga horaria de {{ object.event.workload }} hora(s) no local {{ object.event.place }}</p>
-
                     <br><br>
-
+                    <p class="certified-text col-md-12">Concedido a {{ object.person.name }} (CPF: {{ object.person.cpf }}) como participante do(a) {{ object.event.title }} realizado em {{ object.event.date|date:"d/m/Y" }} com carga horaria de {{ object.event.workload }} hora(s) no local {{ object.event.place }}.</p>
+                    <br>
                     <div class="clearfix">
                         <img src="{% static 'images/edson_signature.png' %}">
                         <br>
                         <strong>Edson Lopes Barbosa</strong>
                         <p>Diretor do Projeto CleanDev</p>
                     </div>
-
-                    <br><br>
-
                     <div class="clearfix">
                         <strong>Link do evento e o e-mail do participante</strong>
-                        <br>
                         <p>{{ object.event.post }}</p>
                         <p>{{ object.person.email }}</p>
+                    </div>
+
+                    <div class="clearfix">
+                        <br>
+                        <h4>Apoio</h4>
+                        <img src="{{ object.place.image }}" height="90" class="pull-left">
+                        {% for support in object.supports.all %}
+                        <img src="{{ support.image }}" height="90" class="pull-left">
+                        {% endfor %}
+                        <img src="{% static 'images/polo_ti.jpg' %}" height="90" class="pull-left">
                     </div>
                 </td>
             </tr>
         </tbody>
     </table>
-    {% endblock content %}
 </div>
+
+<style type="text/css">
+    header, ul.nav, div#nav-back, footer {
+        display: none;
+    }
+    table, table tr td {
+        border: none !important;
+    }
+    .container {
+        width: 100%;
+    }
+    .certified-text {
+        font-size: 17px;
+    }
+    @media print{
+        @page {
+            size: landscape !important;
+        }
+    }
+</style>
+{% endblock content %}

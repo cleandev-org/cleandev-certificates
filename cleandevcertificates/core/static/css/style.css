@@ -25,3 +25,6 @@ body.home #nav-back {
         width: 900px;
     }
 }
+.errorlist {
+    list-style-type: none;
+}

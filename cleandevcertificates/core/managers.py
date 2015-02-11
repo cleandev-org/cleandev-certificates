@@ -7,7 +7,7 @@ class KindPersonManager(models.Manager):
         super(KindPersonManager, self).__init__()
         self.kind = kind
 
-    def get_query_set(self):
+    def get_queryset(self):
         qs = super(KindPersonManager, self).get_query_set()
         qs.filter(kind=self.kind)
 

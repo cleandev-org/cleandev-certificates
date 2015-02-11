@@ -7,15 +7,14 @@
 {% endblock js %}
 
 
-{% block url_back_button %}{% url 'event:certified_list' %}{% endblock url_back_button %}
+{% block url_back_button %}{% url 'events:certified_list' %}{% endblock url_back_button %}
 
 
 {% block content %}
-
 <table class="table">
     <thead>
         <tr>
-            <th colspan="2"><h2>Dados do evento</h2></th>
+            <th colspan="2"></th>
         </tr>
     </thead>
     <tbody>
@@ -38,8 +37,7 @@
         <tr>
             <th class="text-right" width="20">Classifique este evento:</th>
             <td>
-                <form id="id_rating" method="POST" action="{% url 'event:certified_detail' certified.pk %}" class="btn-group">
-                    {% csrf_token %}
+                <form id="id_rating" method="POST" action="{{ certified.get_absolute_url }}" class="btn-group"> {% csrf_token %}
                     <input id="id_action" name="_action" type="hidden" value="rating">
                     <input id="id__rating" name="_rating" type="hidden" value="{{ certified.rating|default_if_none:0 }}">
 
@@ -54,29 +52,24 @@
                     <textarea name="observation" class="form-control">{{ certified.observation }}</textarea>
 
                     <div id="result" class="alert alert-warning clearfix hide" role="alert">
-                      <button type="button" class="close" data-dismiss="alert">
-                          <span aria-hidden="true">×</span><span class="sr-only">Close</span>
-                      </button>
-                      <p></p>
-                  </div>
-              </form>
-          </td>
-      </tr>
-  </tbody>
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <br>
+                    </div>
+                </form>
+            </td>
+        </tr>
+    </tbody>
 
-  <tfoot>
-    <tr>
-        <th></th>
-        <td>
-            <form id="id_send_certified" method="POST" action="{% url 'event:certified_detail' certified.pk %}">
-                {% csrf_token %}
-                <input id="id__action" name="_action" type="hidden" value="send">
-
-                <button name="send-certified" class="btn btn-default"><i class="glyphicon glyphicon-send"></i> Emitir Certificado</button>
-            </form>
-        </td>
-    </tr>
-</tfoot>
+    <tfoot>
+        <tr>
+            <th></th>
+            <td>
+                <form id="id_send_certified" method="POST" action="{{ certified.get_absolute_url }}"> {% csrf_token %}
+                    <input id="id__action" name="_action" type="hidden" value="send">
+                    <button name="send-certified" class="btn btn-default"><i class="glyphicon glyphicon-send"></i> Enviar Certificado</button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
 </table>
-
 {% endblock content %}

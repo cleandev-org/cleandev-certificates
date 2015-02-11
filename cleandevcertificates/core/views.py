@@ -1,15 +1,12 @@
 # coding: utf-8
 from django.shortcuts import render
-from django.views.generic import base, TemplateView, CreateView, UpdateView
+from django.views.generic import base, TemplateView, CreateView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse as r
 from django.core import serializers
+from django.contrib import messages
 from .models import Person
 from .forms import PersonForm, FormLogin
-
-
-def home(request):
-    return render(request, "index.html")
 
 
 class HomeView(TemplateView):
@@ -74,16 +71,38 @@ class PersonCreateView(CreateView):
         return r('core:home')
 
 
-class PersonUpdateView(UpdateView):
+class ProfileView(base.View):
     template_name = 'person_form.html'
-    form = PersonForm
+    form_class = PersonForm
     model = Person
 
     def dispatch(self, request, *args, **kwargs):
         if not logged(request):
             return HttpResponseRedirect(r('core:home'))
 
-        return super(PersonUpdateView, self).dispatch(request, *args, **kwargs)
+        self.get_object()
+
+        return super(ProfileView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        form = self.form_class(instance=self.object)
+
+        return render(request, self.template_name, locals())
+
+    def post(self, request):
+        form = self.form_class(request.POST, instance=self.object)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Perfil atualizado com sucesso.')
+
+            return HttpResponseRedirect(self.object.get_absolute_url())
+
+        return render(request, self.template_name, locals())
+
+    def get_object(self):
+        self.object = self.model.objects.get(
+            pk=self.request.session['person']['pk'])
 
     def get_success_url(self):
         set_session(self.request, self.object)
@@ -111,8 +130,7 @@ def set_session(request, person):
 
 def logged(request):
     try:
-        person = Person.objects.get(pk=request.session.get('person')['pk'])
-
-        return person
+        if Person.objects.get(pk=request.session.get('person')['pk']):
+            return True
     except:
         return False

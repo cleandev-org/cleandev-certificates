@@ -101,12 +101,12 @@ $.fn.extend({
 			return this.trigger("unmask").each(function() {
 				var input = $(this),
 				buffer = $.map(
-				               mask.split(""),
-				               function(c, i) {
-				               	if (c != '?') {
-				               		return defs[c] ? settings.placeholder : c;
-				               	}
-				               }),
+					mask.split(""),
+					function(c, i) {
+						if (c != '?') {
+							return defs[c] ? settings.placeholder : c;
+						}
+					}),
 				focusText = input.val();
 
 				function seekNext(pos) {

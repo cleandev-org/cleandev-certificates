@@ -9,22 +9,19 @@
                 <th>Palestra</th>
                 <th>Carga Horária</th>
                 <th>Data</th>
-                <th colspan="2"></th>
             </tr>
         </thead>
+
         <tbody>
             {% for object in object_list %}
             <tr>
                 <td>
-                    <a href="{% url 'event:certified_detail' object.pk %}" class="btn btn-link">{{ object.event.name }}</a>
+                    <a href="{{ object.get_absolute_url }}" class="btn btn-link">{{ object.event.name }}</a>
                 </td>
                 <td>{{ object.event.workload }}h</td>
                 <td>{{ object.event.date|date:"d/m/Y" }}</td>
                 <td align="right">
-                    <a href="#" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-download"></i></a>
-                </td>
-                <td align="right">
-                    <form method="POST" action="{% url 'event:certified_detail' object.pk %}">
+                    <form method="POST" action="{{ object.get_absolute_url }}">
                         {% csrf_token %}
                         <input id="id__action" name="_action" type="hidden" value="send">
 
@@ -70,5 +67,4 @@
         </tfoot>
     </table>
 </div>
-
 {% endblock content %}
