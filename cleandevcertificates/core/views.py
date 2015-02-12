@@ -128,6 +128,15 @@ def set_session(request, person):
     return True
 
 
+class UserMixin(base.View):
+
+    def dispatch(self, request, *args, **kwargs):
+        if not logged(request):
+            return HttpResponseRedirect(r('core:login'))
+
+        return super(UserMixin, self).dispatch(request, *args, **kwargs)
+
+
 def logged(request):
     try:
         if Person.objects.get(pk=request.session.get('person')['pk']):

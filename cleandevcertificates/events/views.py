@@ -4,12 +4,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse as r
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from django.views.generic import base, ListView, TemplateView
-from datetime import date
-from cleandevcertificates.core.views import logged
-from .models import Event, Certified
+from django.views.generic import base, TemplateView, ListView
+# from datetime import date
+# from reportlab.pdfgen import canvas
+# from reportlab.lib.pagesizes import letter
 
-from reportlab.pdfgen import canvas
+from .models import Event, Certified
+from cleandevcertificates.core.views import logged
 
 
 class CertifiedListView(ListView):
@@ -56,7 +57,7 @@ class CertifiedView(base.View):
     def get_event(self, request):
         return get_object_or_404(self.model_event,
                                  token__exact=request.POST.get('token'))
-                                 #token_expirate__lte=date.today())
+                                 # token_expirate__lte=date.today())
 
     def get_object(self, request):
         certified, created = Certified.objects.get_or_create(
@@ -131,13 +132,35 @@ class CertifiedDetailView(base.View):
 
 class CertifiedPrintView(base.View):
     model = Certified
+    template_name = 'certified_template.html'
 
     def get(self, request, pk):
-        certified = get_object_or_404(self.model, pk=pk,
-                                      person=request.session['person']['pk'])
-        return render(request, 'certified_template.html', {
-            'object': certified
-        })
+        return render(request, self.template_name, {
+            'object': self.get_object()})
+
+    def get_template(self):
+        return render_to_string(self.template_name, {
+            'object': self.get_object()})
+
+    def get_object(self):
+        return self.model.objects.get(
+            pk=self.kwargs.get('pk'),
+            person=self.request.session['person']['pk'])
+
+    def report(self):
+        pass
+        # Reportlab
+        # lwidth, lheight = letter
+        # p = canvas.Canvas(response, pagesize=(lheight, lwidth))
+        # p.drawString(0, 600, self.get_template())
+        # p.showPage()
+        # p.save()
+
+        # response = HttpResponse(f, content_type='application/pdf')
+        # response['Content-Disposition'] = 'filename="{name}.pdf"'.format(
+        #     name=self.object.event.name)
+
+        # return response
 
 
 class CertifiedSuccessView(TemplateView):

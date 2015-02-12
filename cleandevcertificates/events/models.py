@@ -35,6 +35,19 @@ class Event(models.Model):
     def __unicode__(self):
         return self.name
 
+    def persons(self):
+        return self.certified.persons_set.filter(is_active=True)
+
+    def supports(self):
+        return self.support.all()
+
+    def rating(self):
+        return self.certified_set.exclude(rating__isnull=True)\
+            .aggregate(models.Avg('rating'))
+
+    def comments(self):
+        return self.certified_set.exclude(comment__isnull=True).all()
+
     def _generate_token(self):
         token = u'{pk}{date}{now}'.format(pk=self.pk,
                                           date=self.date.toordinal(),
@@ -43,16 +56,6 @@ class Event(models.Model):
 
     def _generate_token_expirate(self):
         return datetime.fromordinal(self.date.toordinal() + 2)
-
-    def persons(self):
-        return self.certified.persons_set.filter(is_active=True)
-
-    def rating(self):
-        return self.certified_set.exclude(rating__isnull=True)\
-            .aggregate(models.Avg('rating'))
-
-    def comments(self):
-        return self.certified_set.exclude(comment__isnull=True).all()
 
 
 class Certified(models.Model):
@@ -70,7 +73,7 @@ class Certified(models.Model):
         ordering = ['-event__date']
 
     def __unicode__(self):
-        return self.person.name
+        return self.event.name
 
     @models.permalink
     def get_absolute_url(self):

@@ -34,11 +34,11 @@
                         <p>{{ object.person.email }}</p>
                     </div>
 
-                    <div class="clearfix">
+                    <div id="support" class="clearfix">
                         <br>
                         <h4>Apoio</h4>
                         <img src="{{ object.place.image }}" height="90" class="pull-left">
-                        {% for support in object.supports.all %}
+                        {% for support in object.event.supports %}
                         <img src="{{ support.image }}" height="90" class="pull-left">
                         {% endfor %}
                         <img src="{% static 'images/polo_ti.jpg' %}" height="90" class="pull-left">
@@ -62,10 +62,9 @@
     .certified-text {
         font-size: 17px;
     }
-    @media print{
-        @page {
-            size: landscape !important;
-        }
+    @page {
+        size: landscape !important;
+        margin: 0;
     }
 </style>
 {% endblock content %}
