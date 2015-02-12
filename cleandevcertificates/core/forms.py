@@ -5,11 +5,6 @@ from django.core.exceptions import ValidationError
 from .models import _, Person
 
 
-def email_is_unique(value):
-    if Person.objects.filter(email__exact=value).count():
-        raise ValidationError(_(u'Email já cadastrado no sistema.'))
-
-
 class PersonForm(forms.ModelForm):
     cpf = BRCPFField(label=_(u'CPF'))
 
@@ -19,7 +14,6 @@ class PersonForm(forms.ModelForm):
         self.fields['university'].required = True
         self.fields['course'].required = True
         self.fields['email'].required = True
-        self.fields['email'].validators.append(email_is_unique)
 
     class Meta:
         model = Person
