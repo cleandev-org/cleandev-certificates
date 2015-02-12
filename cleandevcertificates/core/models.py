@@ -26,7 +26,7 @@ class Person(models.Model):
     facebook = models.URLField(_(u'facebook'), blank=True)
     twitter = models.CharField(_(u'twitter'), max_length=50, blank=True)
     image = models.CharField(_(u'URL imagem'), max_length=250, blank=True)
-    order = models.PositiveIntegerField(_(u'ordem de exibição'))
+    order = models.PositiveIntegerField(_(u'ordem de exibição'), default=0)
     is_active = models.BooleanField(_(u'ativo?'), default=True)
     created_at = models.DateTimeField(_(u'criado em'), auto_now_add=True)
     updated_at = models.DateTimeField(_(u'alterador em'), auto_now=True)
