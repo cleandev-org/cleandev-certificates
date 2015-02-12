@@ -42,7 +42,7 @@ class Person(models.Model):
         ordering = ['order', 'name']
 
     def __unicode__(self):
-        if self.kind in ['U', 'P']:
+        if self.kind in ['U', 'P'] and self.city:
             return '%s - %s' % (self.name, self.city)
         return self.name
 
