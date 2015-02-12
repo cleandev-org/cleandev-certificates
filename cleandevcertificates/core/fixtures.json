@@ -6,7 +6,7 @@
         "kind": "P",
         "university": "",
         "course": "",
-        "semester": "",
+        "semester": 0,
         "name": "PythonMania.org",
         "display_name": "PythonMania.org",
         "cpf": "",
@@ -15,10 +15,10 @@
         "facebook": "",
         "twitter": "",
         "image": "/static/images/pythonmania.jpg",
-        "order": "",
+        "order": 0,
         "is_active": 1,
-        "created_at": "",
-        "updated_at": ""
+        "created_at": "2015-02-12 00:00:00",
+        "updated_at":  "2015-02-12 00:00:00"
     }
 },
 {
@@ -28,7 +28,7 @@
         "kind": "U",
         "university": "",
         "course": "",
-        "semester": "",
+        "semester": 0,
         "name": "Unifran",
         "display_name": "Unifran",
         "cpf": "",
@@ -37,54 +37,10 @@
         "facebook": "",
         "twitter": "",
         "image": "/static/images/unifran.jpg",
-        "order": "",
+        "order": 0,
         "is_active": 1,
-        "created_at": "",
-        "updated_at": ""
-    }
-},
-{
-    "model": "core.person",
-    "pk": 3,
-    "fields": {
-        "kind": "U",
-        "university": "",
-        "course": "",
-        "semester": "",
-        "name": "Uni-Facef",
-        "display_name": "Uni-Facef",
-        "cpf": "",
-        "email": "",
-        "city": "Franca, SP",
-        "facebook": "",
-        "twitter": "",
-        "image": "/static/images/unifacef.png",
-        "order": "",
-        "is_active": 1,
-        "created_at": "",
-        "updated_at": ""
-    }
-},
-{
-    "model": "core.person",
-    "pk": 4,
-    "fields": {
-        "kind": "U",
-        "university": "",
-        "course": "",
-        "semester": "",
-        "name": "Outros",
-        "display_name": "Uni-Facef",
-        "cpf": "",
-        "email": "",
-        "city": "Franca, SP",
-        "facebook": "",
-        "twitter": "",
-        "image": "",
-        "order": 1,
-        "is_active": 1,
-        "created_at": "",
-        "updated_at": ""
+        "created_at": "2015-02-12 00:00:00",
+        "updated_at":  "2015-02-12 00:00:00"
     }
 }
 ]

@@ -1,6 +1,5 @@
 # coding: utf-8
 from django.db import models
-from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from .managers import KindPersonManager
 
@@ -21,7 +20,7 @@ class Person(models.Model):
     semester = models.IntegerField(_(u'semestre'), blank=True, null=True)
     name = models.CharField(_(u'nome'), max_length=100)
     display_name = models.CharField(_(u'apelido'), max_length=100, blank=True)
-    cpf = models.CharField(_(u'CPF'), max_length=20, blank=True, null=True)
+    cpf = models.CharField(_(u'CPF'), max_length=20, blank=True)
     email = models.EmailField(_(u'e-mail'), max_length=100, blank=True)
     city = models.CharField(_(u'cidade'), max_length=50, blank=True)
     facebook = models.URLField(_(u'facebook'), blank=True)
@@ -44,6 +43,8 @@ class Person(models.Model):
         ordering = ['order', 'name']
 
     def __unicode__(self):
+        if self.kind in ['U', 'P']:
+            return '%s - %s' % (self.name, self.city)
         return self.name
 
     @models.permalink

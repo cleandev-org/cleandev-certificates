@@ -16,24 +16,7 @@
         {% csrf_token %}
         <input id="id_kind" name="kind" type="hidden" value="{{ form.kind.value|default_if_none:'S' }}">
 
-        {% bootstrap_field form.name %}
-
-        {% bootstrap_field form.cpf %}
-
-        {% bootstrap_field form.email %}
-
-        {% bootstrap_field form.city %}
-
-        {% bootstrap_field form.university %}
-
-        {% bootstrap_field form.course %}
-
-        {% bootstrap_field form.semester %}
-
-        {% if object %}
-            {% bootstrap_field form.facebook %}
-            {% bootstrap_field form.twitter %}
-        {% endif %}
+        {% bootstrap_form form %}
 
         <div class="form-contrgroupol">
             <button class="btn btn-primary btn-block">Salvar</button>

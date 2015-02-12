@@ -57,7 +57,7 @@ class LogoutView(base.View):
 
 class PersonCreateView(CreateView):
     template_name = 'person_form.html'
-    form = PersonForm()
+    form_class = PersonForm
     model = Person
 
     def dispatch(self, request, *args, **kwargs):
