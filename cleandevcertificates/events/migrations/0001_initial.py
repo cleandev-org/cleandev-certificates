@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0003_auto_20150211_1257'),
+        ('core', '0001_initial'),
     ]
 
     operations = [
@@ -35,15 +35,15 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=250, verbose_name='nome')),
                 ('workload', models.IntegerField(verbose_name='carga hor\xe1ria')),
                 ('date', models.DateTimeField(verbose_name='data e hora')),
-                ('complement', models.CharField(max_length=50, verbose_name='Complemento', blank=True)),
+                ('complement', models.TextField(verbose_name='Complemento', blank=True)),
                 ('post', models.URLField(verbose_name='Post', blank=True)),
                 ('token', models.CharField(max_length=50, verbose_name='token', blank=True)),
-                ('token_expirate', models.DateTimeField(null=True, verbose_name='data de expira\xe7\xe3o', blank=True)),
+                ('token_expirate', models.DateField(null=True, verbose_name='data de expira\xe7\xe3o', blank=True)),
                 ('is_active', models.BooleanField(default=True, verbose_name='ativo?')),
                 ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='criado em')),
                 ('updated_at', models.DateTimeField(auto_now=True, verbose_name='alterado em')),
-                ('place', models.ForeignKey(related_name=b'place', verbose_name='Local', to='core.Person')),
-                ('speaker', models.ForeignKey(related_name=b'speaker', verbose_name='Palestrante', to='core.Person')),
+                ('place', models.ForeignKey(related_name='place', verbose_name='Local', to='core.Person')),
+                ('speaker', models.ForeignKey(related_name='speaker', verbose_name='Palestrante', to='core.Person')),
                 ('support', models.ManyToManyField(to='core.Person', verbose_name='apoio')),
             ],
             options={
