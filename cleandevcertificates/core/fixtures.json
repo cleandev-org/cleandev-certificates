@@ -1,0 +1,90 @@
+[
+{
+    "model": "core.person",
+    "pk": 1,
+    "fields": {
+        "kind": "P",
+        "university": "",
+        "course": "",
+        "semester": "",
+        "name": "PythonMania.org",
+        "display_name": "PythonMania.org",
+        "cpf": "",
+        "email": "",
+        "city": "Franca, SP",
+        "facebook": "",
+        "twitter": "",
+        "image": "/static/images/pythonmania.jpg",
+        "order": "",
+        "is_active": 1,
+        "created_at": "",
+        "updated_at": ""
+    }
+},
+{
+    "model": "core.person",
+    "pk": 2,
+    "fields": {
+        "kind": "U",
+        "university": "",
+        "course": "",
+        "semester": "",
+        "name": "Unifran",
+        "display_name": "Unifran",
+        "cpf": "",
+        "email": "",
+        "city": "Franca, SP",
+        "facebook": "",
+        "twitter": "",
+        "image": "/static/images/unifran.jpg",
+        "order": "",
+        "is_active": 1,
+        "created_at": "",
+        "updated_at": ""
+    }
+},
+{
+    "model": "core.person",
+    "pk": 3,
+    "fields": {
+        "kind": "U",
+        "university": "",
+        "course": "",
+        "semester": "",
+        "name": "Uni-Facef",
+        "display_name": "Uni-Facef",
+        "cpf": "",
+        "email": "",
+        "city": "Franca, SP",
+        "facebook": "",
+        "twitter": "",
+        "image": "/static/images/unifacef.png",
+        "order": "",
+        "is_active": 1,
+        "created_at": "",
+        "updated_at": ""
+    }
+},
+{
+    "model": "core.person",
+    "pk": 4,
+    "fields": {
+        "kind": "U",
+        "university": "",
+        "course": "",
+        "semester": "",
+        "name": "Outros",
+        "display_name": "Uni-Facef",
+        "cpf": "",
+        "email": "",
+        "city": "Franca, SP",
+        "facebook": "",
+        "twitter": "",
+        "image": "",
+        "order": 1,
+        "is_active": 1,
+        "created_at": "",
+        "updated_at": ""
+    }
+}
+]

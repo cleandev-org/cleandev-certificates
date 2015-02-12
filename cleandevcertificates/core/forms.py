@@ -12,6 +12,7 @@ class PersonForm(forms.ModelForm):
         super(PersonForm, self).__init__(*args, **kwargs)
 
         self.fields['kind'].widget = forms.HiddenInput()
+        self.fields['university'].required = True
         self.fields['email'].required = True
 
 
