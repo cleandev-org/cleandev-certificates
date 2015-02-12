@@ -80,7 +80,7 @@ class Certified(models.Model):
         return ('events:certified_detail', (), {'pk': self.pk})
 
     def get_print_url(self):
-        uri = ('events:certified_print', (), {'pk': self.pk})
+        uri = r('events:certified_print', kwargs={'pk': self.pk})
 
         return '%s%s' % (settings.SITE_URL, uri)
 

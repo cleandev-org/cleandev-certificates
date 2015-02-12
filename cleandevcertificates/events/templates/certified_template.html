@@ -34,14 +34,14 @@
                         <p>{{ object.person.email }}</p>
                     </div>
 
-                    <div id="support" class="clearfix">
+                    <div id="support" class="clearfix text-center">
                         <br>
                         <h4>Apoio</h4>
-                        <img src="{{ object.place.image }}" height="90" class="pull-left">
+                        <img src="{{ object.place.image }}" height="90">
                         {% for support in object.event.supports %}
-                        <img src="{{ support.image }}" height="90" class="pull-left">
+                        <img src="{{ support.image }}" height="90">
                         {% endfor %}
-                        <img src="{% static 'images/polo_ti.jpg' %}" height="90" class="pull-left">
+                        <img src="{% static 'images/polo_ti.jpg' %}" height="90">
                     </div>
                 </td>
             </tr>
@@ -50,7 +50,10 @@
 </div>
 
 <style type="text/css">
-    header, ul.nav, div#nav-back, footer {
+    body, .container {
+        margin: 0;
+    }
+    main ul.nav, div#nav-back, footer {
         display: none;
     }
     table, table tr td {
@@ -62,9 +65,18 @@
     .certified-text {
         font-size: 17px;
     }
+    #support img {
+        margin-left: 5px;
+    }
+    #support img:first-child {
+        margin: 0px;
+    }
     @page {
         size: landscape !important;
         margin: 0;
     }
 </style>
+<script type="text/javascript">
+    window.print();
+</script>
 {% endblock content %}

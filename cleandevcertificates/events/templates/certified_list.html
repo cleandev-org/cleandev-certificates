@@ -21,6 +21,8 @@
                 <td>{{ object.event.workload }}h</td>
                 <td>{{ object.event.date|date:"d/m/Y" }}</td>
                 <td align="right">
+                    <a href="{{ object.get_print_url }}" title="Imprimir" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-print"></i></a>
+                    <!--
                     <form method="POST" action="{{ object.get_absolute_url }}">
                         {% csrf_token %}
                         <input id="id__action" name="_action" type="hidden" value="send">
@@ -29,6 +31,7 @@
                             <i class="glyphicon glyphicon-send"></i>
                         </button>
                     </form>
+                    -->
                 </td>
             </tr>
             {% empty %}
@@ -41,27 +44,7 @@
         <tfoot>
             <tr>
                 <td colspan="4">
-                    <ul class="pagination">
-                        {% if paginator.has_previous %}
-                        <li><a href="?page={{ paginator.has_previous_number }}">&laquo;</a></li>
-                        {% else %}
-                        <li class="disabled"><a href="#">&laquo;</a></li>
-                        {% endif %}
-
-                        {% for page in paginator.page_range %}
-                        {% ifequal paginator.number page %}
-                        <li class="active"><a href="#">{{ page }}</a></li>
-                        {% else %}
-                        <li><a href="?page={{ page }}">{{ page }}</a></li>
-                        {% endifequal %}
-                        {% endfor %}
-
-                        {% if paginator.has_next %}
-                        <li><a href="?page={{ paginator.has_next_number }}">&raquo;</a></li>
-                        {% else %}
-                        <li class="disabled"><a href="#">&raquo;</a></li>
-                        {% endif %}
-                    </ul>
+                    {% include "pagination/pagination.html" %}
                 </td>
             </tr>
         </tfoot>
