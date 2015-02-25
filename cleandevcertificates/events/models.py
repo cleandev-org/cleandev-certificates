@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse as r
 from datetime import datetime
 from django.conf import settings
+import hashlib
 
 
 class Event(models.Model):
@@ -49,10 +50,12 @@ class Event(models.Model):
         return self.certified_set.exclude(comment__isnull=True).all()
 
     def _generate_token(self):
-        token = u'{pk}{date}{now}'.format(pk=self.pk,
-                                          date=self.date.toordinal(),
-                                          now=datetime.now().toordinal())
-        return u''.join(sorted(token))[:8]
+        hash_string = hashlib.sha1(b'{pk}{date}{created_at}{now}'.format(
+                    pk=self.pk,
+                    date=self.date.toordinal(),
+                    created_at=self.created_at,
+                    now=datetime.now().toordinal())).hexdigest()
+        return sorted(hash_string)[:8]
 
     def _generate_token_expirate(self):
         return datetime.fromordinal(self.date.toordinal() + 2)
