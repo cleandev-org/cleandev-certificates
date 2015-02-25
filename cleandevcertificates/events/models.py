@@ -57,9 +57,9 @@ class Event(models.Model):
             now=datetime.now().toordinal())
         hash_object = hashlib.sha1(token)
         hex_dig = hash_object.hexdigest()
-        hash_string = ''.join(sorted(hex_dig))[:8]
+        hash_string = 'CLD%s' % hex_dig[:7]
 
-        return 'CLD%s' % hash_string
+        return hash_string
 
     def _generate_token_expirate(self):
         return datetime.fromordinal(self.date.toordinal() + 2)
