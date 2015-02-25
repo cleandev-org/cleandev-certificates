@@ -51,12 +51,12 @@ class Event(models.Model):
 
     def _generate_token(self):
         token = u'{pk}{date}{created_at}{now}'.format(
-                    pk=self.pk,
-                    date=self.date.toordinal(),
-                    created_at=self.created_at,
-                    now=datetime.now().toordinal())
-        hash_string = hashlib.sha1(b''.join(token)).hexdigest()
-        return sorted(hash_string)[:8]
+            pk=self.pk,
+            date=self.date.toordinal(),
+            created_at=self.created_at,
+            now=datetime.now().toordinal())
+        hash_string = ''.join(hashlib.sha1(b''.join(token)).hexdigest())
+        return 'CLD' + sorted(hash_string)[:8]
 
     def _generate_token_expirate(self):
         return datetime.fromordinal(self.date.toordinal() + 2)
