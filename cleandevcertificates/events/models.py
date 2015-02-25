@@ -50,11 +50,12 @@ class Event(models.Model):
         return self.certified_set.exclude(comment__isnull=True).all()
 
     def _generate_token(self):
-        hash_string = hashlib.sha1(b'{pk}{date}{created_at}{now}'.format(
+        token = u'{pk}{date}{created_at}{now}'.format(
                     pk=self.pk,
                     date=self.date.toordinal(),
                     created_at=self.created_at,
-                    now=datetime.now().toordinal())).hexdigest()
+                    now=datetime.now().toordinal())
+        hash_string = hashlib.sha1(b''.join(token)).hexdigest()
         return sorted(hash_string)[:8]
 
     def _generate_token_expirate(self):
