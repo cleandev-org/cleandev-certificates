@@ -55,8 +55,7 @@ class Event(models.Model):
             date=self.date.toordinal(),
             created_at=self.created_at,
             now=datetime.now().toordinal())
-        hash_dig = hashlib.sha1(token).hexdigest()
-        hash_string = 'CLD%s' % hash_dig[:7]
+        hash_string = hashlib.sha1(token).hexdigest()[:8]
 
         return hash_string.upper()
 
