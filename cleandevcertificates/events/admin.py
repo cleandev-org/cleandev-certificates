@@ -4,7 +4,8 @@ from .models import Event, Certified
 
 
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('name', 'place', 'token', 'created_at')
+    list_display = ('name', 'place', 'date', 'token',
+                    'token_expirate', 'created_at')
     date_hierarchy = 'date'
 
 

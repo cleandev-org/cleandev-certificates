@@ -51,8 +51,8 @@ class Event(models.Model):
     def _generate_token(self):
         token = u'{pk}{date}{now}'.format(pk=self.pk,
                                           date=self.date.toordinal(),
-                                          now=datetime.now().toordinal())[:8]
-        return u''.join(sorted(token))
+                                          now=datetime.now().toordinal())
+        return u''.join(sorted(token))[:8]
 
     def _generate_token_expirate(self):
         return datetime.fromordinal(self.date.toordinal() + 2)
