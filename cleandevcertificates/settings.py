@@ -17,7 +17,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
-SITE_URL = 'http://127.0.0.1:8000'
+SITE_URL = 'http://cleandevcertificates.herokuapp.com'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
