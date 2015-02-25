@@ -94,7 +94,8 @@ class CertifiedDetailView(base.View):
             return self.rating(request)
 
         if action == "send":
-            return self.send_certified(request)
+            pass
+            #return self.send_certified(request)
 
         return HttpResponseRedirect(r("events:certified_detail", args=[],
                                       kwargs={'pk': self.certified.pk}))
