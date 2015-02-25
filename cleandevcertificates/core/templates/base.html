@@ -28,8 +28,8 @@
                 <a href="{% url 'core:home' %}" class="navbar-brand">CleanDev.org</a>
             </div>
             <div id="main-nav" class="navbar-collapse collapse" aria-expanded="false">
+                {% if request.session.person %}
                 <ul class="nav navbar-nav navbar-right">
-                    {% if request.session.person %}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ request.session.person.name }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -41,12 +41,14 @@
                             </li>
                         </ul>
                     </li>
-                    {% else %}
-                    <li>
-                        <a href="{% url 'core:person_new' %}" class="btn btn-link">Cadastrar</a>
-                    </li>
-                    {% endif %}
                 </ul>
+                {% else %}
+                <ul class="pull-right list-unstyled" style="margin-top: 8px; margin-bottom: 0;">
+                    <li>
+                        <a href="{% url 'core:person_new' %}" class="btn btn-success">Cadastrar</a>
+                    </li>
+                </ul>
+                {% endif %}
             </div>
         </div>
     </header>
