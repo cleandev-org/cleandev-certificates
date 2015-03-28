@@ -95,7 +95,7 @@ class CertifiedDetailView(base.View):
 
         if action == "send":
             pass
-            #return self.send_certified(request)
+            # return self.send_certified(request)
 
         return HttpResponseRedirect(r("events:certified_detail", args=[],
                                       kwargs={'pk': self.certified.pk}))
@@ -135,12 +135,15 @@ class CertifiedPrintView(base.View):
     model = Certified
     template_name = 'certified_template.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not logged(request):
+            return HttpResponseRedirect(r('core:login'))
+
+        return super(CertifiedPrintView, self).dispatch(request,
+                                                        *args, **kwargs)
+
     def get(self, request, pk):
         return render(request, self.template_name, {
-            'object': self.get_object()})
-
-    def get_template(self):
-        return render_to_string(self.template_name, {
             'object': self.get_object()})
 
     def get_object(self):

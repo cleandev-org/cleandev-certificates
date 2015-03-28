@@ -2,6 +2,19 @@
 {% load staticfiles %}
 
 
+{% block css %}
+<style type="text/css" media="print">
+    @media print {
+        .container {
+            width: auto;
+        }
+    }
+    @page {
+        size: landscape;
+    }
+</style>
+{% endblock css %}
+
 {% block js %}
 <script type="text/javascript" async src="{% static 'js/certifieds.js' %}"></script>
 {% endblock js %}
@@ -70,7 +83,7 @@
                     <input id="id__action" name="_action" type="hidden" value="send">
                     <button name="send-certified" class="btn btn-default"><i class="glyphicon glyphicon-print"></i> Imprimir Certificado</button>
                 </form> -->
-                <a href="{{ certified.get_print_url }}" title="Imprimir" class="btn btn-default"><i class="glyphicon glyphicon-print"> Imprimir Certificado</i></a>
+                <a href="{{ certified.get_print_url }}" title="Imprimir" class="btn btn-default"><i class="glyphicon glyphicon-print"></i> Imprimir Certificado</a>
             </td>
         </tr>
     </tfoot>
