@@ -1,5 +1,6 @@
-{% extends 'base.html' %}
 
+{% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block content %}
 <div class="clearfix">
@@ -16,7 +17,7 @@
             {% for object in object_list %}
             <tr>
                 <td>
-                    <a href="{{ object.get_absolute_url }}" class="btn btn-link">{{ object.event.name }}</a>
+                    <a href="{{ object.get_absolute_url }}" class="btn btn-link">{{ object.event.name }} </a> {% if object.person.pk == object.event.speaker.pk %}<img src="{% static 'images/speaker.png' %}" width="15px">{% endif %}
                 </td>
                 <td>{{ object.event.workload }}h</td>
                 <td>{{ object.event.date|date:"d/m/Y" }}</td>
