@@ -20,7 +20,11 @@
                     <br>
                     <h1>Certificado</h1>
                     <br><br>
-                    <p class="certified-text col-md-12">Concedido a {{ object.person.name }} (CPF: {{ object.person.cpf }}) como participante do(a) {{ object.event.name }} realizado em {{ object.event.date|date:"d/m/Y" }} com carga horária de {{ object.event.workload }} hora(s) no local {{ object.event.place }}.</p>
+                    {% if object.person.pk == object.event.speaker.pk %}
+                        <p class="certified-text col-md-12">Concedido à {{ object.person.name }} (CPF: {{ object.person.cpf }}) o presente certificado por haver ministrado a atividade {{ object.event.name }} realizado em {{ object.event.date|date:"d/m/Y" }} com carga horária de {{ object.event.workload }} hora(s) nas dependências do(a) {{ object.event.place }}.</p>
+                    {% else %}
+                        <p class="certified-text col-md-12">Concedido a {{ object.person.name }} (CPF: {{ object.person.cpf }}) como participante do(a) {{ object.event.name }} realizado em {{ object.event.date|date:"d/m/Y" }} com carga horária de {{ object.event.workload }} hora(s) no local {{ object.event.place }}.</p>
+                    {% endif %}
                     <br>
                     <div class="clearfix">
                         <img src="{% static 'images/edson_signature.png' %}">
