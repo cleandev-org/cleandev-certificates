@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from decouple        import config
+from decouple import config
 from dj_database_url import parse as db_url
 import os
 
@@ -17,9 +17,9 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
-# SITE_URL = 'http://127.0.0.1:8000'
+SITE_URL = 'http://127.0.0.1:8000'
 # SITE_URL = 'http://cleandevcertificates.herokuapp.com'
-SITE_URL = 'http://certificados.cleandev.org'
+# SITE_URL = 'http://certificados.cleandev.org'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -29,18 +29,18 @@ SECRET_KEY = config('SECRET_KEY')
 # SECRET_KEY = '8lu*6g0lg)9z!ba+a$ehk)xt)x%rxgb$i1&amp;022shmi1jcgihb*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG     = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS  = []
+ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = (
     'django_admin_bootstrapped',
-    
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -66,7 +66,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 
-ROOT_URLCONF     = 'cleandevcertificates.urls'
+ROOT_URLCONF = 'cleandevcertificates.urls'
 
 WSGI_APPLICATION = 'cleandevcertificates.wsgi.application'
 
@@ -86,13 +86,13 @@ DATABASES = {
 
 LANGUAGE_CODE = 'pt-Br'
 
-TIME_ZONE     = 'UTC'
+TIME_ZONE = 'UTC'
 
-USE_I18N      = True
+USE_I18N = True
 
-USE_L10N      = True
+USE_L10N = True
 
-USE_TZ        = True
+USE_TZ = True
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
@@ -106,10 +106,10 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL  = '/static/'
+STATIC_URL = '/static/'
 
-EMAIL_HOST          = config('EMAIL_HOST', cast=str)
-EMAIL_HOST_USER     = config('EMAIL_HOST_USER')
+EMAIL_HOST = config('EMAIL_HOST', cast=str)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_PORT          = 587
-EMAIL_USE_TLS       = True
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

@@ -11,32 +11,35 @@ class Person(models.Model):
         ('P', _(u'Patrocinador')),
     )
 
-    kind         = models.CharField(_(u'tipo'), max_length=1, choices=KIND_CHOICES, default="S")
-    university   = models.ForeignKey('self', verbose_name=_(u'faculdade'), blank=True, null=True,limit_choices_to={'kind__in': ['U']})
-    course       = models.CharField(_(u'curso'), max_length=100, blank=True)
-    semester     = models.IntegerField(_(u'semestre'), blank=True, null=True)
-    name         = models.CharField(_(u'nome'), max_length=100)
+    kind = models.CharField(
+        _(u'tipo'), max_length=1, choices=KIND_CHOICES, default="S")
+    university = models.ForeignKey('self', verbose_name=_(
+        u'faculdade'), blank=True, null=True,
+        limit_choices_to={'kind__in': ['U']})
+    course = models.CharField(_(u'curso'), max_length=100, blank=True)
+    semester = models.IntegerField(_(u'semestre'), blank=True, null=True)
+    name = models.CharField(_(u'nome'), max_length=100)
     display_name = models.CharField(_(u'apelido'), max_length=100, blank=True)
-    cpf          = models.CharField(_(u'CPF'), max_length=20, blank=True)
-    email        = models.EmailField(_(u'e-mail'), max_length=100, blank=True)
-    city         = models.CharField(_(u'cidade'), max_length=50, blank=True)
-    facebook     = models.URLField(_(u'facebook'), blank=True)
-    twitter      = models.CharField(_(u'twitter'), max_length=50, blank=True)
-    image        = models.CharField(_(u'URL imagem'), max_length=250, blank=True)
-    order        = models.PositiveIntegerField(_(u'ordem de exibição'), default=0)
-    is_active    = models.BooleanField(_(u'ativo?'), default=True)
-    created_at   = models.DateTimeField(_(u'criado em'), auto_now_add=True)
-    updated_at   = models.DateTimeField(_(u'alterador em'), auto_now=True)
+    cpf = models.CharField(_(u'CPF'), max_length=20, blank=True)
+    email = models.EmailField(_(u'e-mail'), max_length=100, blank=True)
+    city = models.CharField(_(u'cidade'), max_length=50, blank=True)
+    facebook = models.URLField(_(u'facebook'), blank=True)
+    twitter = models.CharField(_(u'twitter'), max_length=50, blank=True)
+    image = models.CharField(_(u'URL imagem'), max_length=250, blank=True)
+    order = models.PositiveIntegerField(_(u'ordem de exibição'), default=0)
+    is_active = models.BooleanField(_(u'ativo?'), default=True)
+    created_at = models.DateTimeField(_(u'criado em'), auto_now_add=True)
+    updated_at = models.DateTimeField(_(u'alterador em'), auto_now=True)
 
-    objects      = models.Manager()
-    students     = KindPersonManager('S')
+    objects = models.Manager()
+    students = KindPersonManager('S')
     universities = KindPersonManager('U')
-    places       = KindPersonManager(['U', 'P'])
+    places = KindPersonManager(['U', 'P'])
 
     class Meta:
-        verbose_name        = _(u'Pessoa')
+        verbose_name = _(u'Pessoa')
         verbose_name_plural = _(u'Pessoas')
-        ordering            = ['order', 'name']
+        ordering = ['order', 'name']
 
     def __unicode__(self):
         if self.kind in ['U', 'P'] and self.city:
