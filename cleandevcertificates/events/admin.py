@@ -7,7 +7,7 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ('name', 'place', 'date', 'speaker__name',
                     'token', 'token_expirate', 'created_at')
     date_hierarchy = 'date'
-    search_fields = ['name', 'speaker__name']
+    search_fields = ['name', 'speaker']
 
 
 class CertifiedAdmin(admin.ModelAdmin):
