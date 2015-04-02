@@ -4,10 +4,10 @@ from .models import Event, Certified
 
 
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('name', 'place', 'date', 'speaker__name',
+    list_display = ('name', 'place', 'date', 'speaker',
                     'token', 'token_expirate', 'created_at')
     date_hierarchy = 'date'
-    search_fields = ['name', 'speaker']
+    search_fields = ['name', 'speaker__name']
 
 
 class CertifiedAdmin(admin.ModelAdmin):
