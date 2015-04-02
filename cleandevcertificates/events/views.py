@@ -5,18 +5,14 @@ from django.core.urlresolvers import reverse as r
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.views.generic import base, TemplateView, ListView
-# from datetime import date
-# from reportlab.pdfgen import canvas
-# from reportlab.lib.pagesizes import letter
-
-from .models import Event, Certified
 from cleandevcertificates.core.views import logged
+from .models import Event, Certified
 
 
 class CertifiedListView(ListView):
     model = Certified
     template_name = "certified_list.html"
-    paginate_by = 1
+    paginate_by = 20
 
     def dispatch(self, request, *args, **kwargs):
         if not logged(request):
